@@ -7,7 +7,7 @@ module.exports = [
         entry: './src/extension.js',
         output: {
             filename: 'extension.js',
-            path: path.resolve( __dirname, 'dist' ),
+            path: path.resolve( __dirname, 'static' ),
             libraryTarget: 'amd',
         },
         resolve: {
@@ -18,7 +18,7 @@ module.exports = [
         entry: './src/index.js',
         output: {
             filename: 'index.js',
-            path: path.resolve( __dirname, 'dist' ),
+            path: path.resolve( __dirname, 'static' ),
             libraryTarget: 'amd',
         },
         resolve: {
