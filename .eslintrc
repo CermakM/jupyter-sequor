@@ -1,0 +1,32 @@
+{
+    "parser": "babel-eslint",
+    "extends": [
+        "prettier"
+    ],
+    "rules": {
+        "array-bracket-spacing": [
+            "warn",
+            "always"
+        ],
+        "no-useless-escape": "warn",
+        "object-curly-spacing": [
+            "warn",
+            "always"
+        ],
+        "quotes": [
+            "warn",
+            "double"
+        ],
+        "semi": [
+            "warn",
+            "never"
+        ],
+        "space-in-parens": [
+            "error",
+            "always"
+        ]
+    },
+    "env": {
+        "browser": true
+    }
+}
