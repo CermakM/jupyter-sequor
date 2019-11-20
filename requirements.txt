@@ -1,2 +1,1 @@
 ipython>=7.0
-notebook>=6.0
