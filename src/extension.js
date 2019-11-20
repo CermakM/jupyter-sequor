@@ -1,4 +1,6 @@
-define( [
+import style from "../assets/style.scss"
+
+define( "jupyter-sequor", [
   "jquery",
   "underscore",
   "base/js/events",
