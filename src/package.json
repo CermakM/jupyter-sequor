@@ -1,0 +1,33 @@
+{
+    "name": "jupyter-sequor",
+    "version": "0.0.0",
+    "description": "Jupyter extension for following cell outputs.",
+    "author": "Marek Cermak <macermak@redhat.com>",
+    "homepage": "https://github.com/CermakM/jupyter-sequor#readme",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/CermakM/jupyter-sequor/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CermakM/jupyter-sequor.git"
+    },
+    "private": true,
+    "scripts": {
+        "lint": "tsc --noEmit && eslint \"**/*.ts\" --fix",
+        "build": "npm run lint && webpack -d",
+        "build-prod": "npm run lint && webpack -p --config webpack.config.prod.js",
+        "watch": "webpack -d --watch",
+        "build-ts": "rm -rf dist/ && tsc",
+        "watch-ts": "tsc --watch",
+        "test": "eslint \"**/*.ts\" --quiet"
+    },
+    "keywords": [
+        "jupyter",
+        "notebook",
+        "extension",
+        "follow",
+        "output",
+        "outputarea"
+    ]
+}
