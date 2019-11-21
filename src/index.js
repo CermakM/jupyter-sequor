@@ -95,6 +95,8 @@ OutputArea.prototype.scroll_area = function () {
       }
       this.last_scroll_position = pos
     } )
+
+    this.scroll_to_bottom()
   }
 
   this.events.on( "output_added.OutputArea", this.scroll_to_bottom.bind( this ) )
