@@ -31,6 +31,8 @@ if ( window.require ) {
     } );
     window.require( [ __extension__ ], ( module ) => {
         // Require it right ahead so that it is loaded immediately
+        module.setup()
+
         console.log( "Loaded extension: ", __extension__ )
     } )
 }

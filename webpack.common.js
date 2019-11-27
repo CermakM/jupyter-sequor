@@ -56,6 +56,7 @@ module.exports = [
             'jquery': { amd: '$' },
             'underscore': { amd: '_' },
             'base/js/events': { amd: 'base/js/events' },
+            'base/js/namespace': { amd: 'base/js/namespace' },
             'notebook/js/outputarea': { amd: 'notebook/js/outputarea' },
         },
     }

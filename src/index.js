@@ -7,7 +7,7 @@
  * @since  0.0.0
  */
 
-"use strict"
+import config from "./config"
 
 import style from "../assets/style.scss"
 
@@ -15,6 +15,15 @@ import style from "../assets/style.scss"
 const events = require( "base/js/events" )
 const OutputArea = require( "notebook/js/outputarea" ).OutputArea
 
+/**
+ * Setup UI
+ *
+ * @export
+ */
+export function setup() {
+  config.register_actions()
+  config.create_menu_items()
+}
 
 OutputArea.prototype.enable_follow = function () {
   this.follow_output = true
