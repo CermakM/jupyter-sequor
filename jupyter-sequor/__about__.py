@@ -36,7 +36,7 @@ __title__ = "jupyter-sequor"
 __summary__ = "Jupyter extension for following cell outputs."
 __uri__ = "https://github.com/CermakM/jupyter-sequor"
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 __author__ = "Marek Cermak"
 __email__ = "macermak@redhat.com"
