@@ -11,9 +11,7 @@ const Jupyter = require( "base/js/namespace" )
 
 
 const action_names = {
-  "enable_current_follow": null,
   "toggle_current_follow": null,
-  "disable_current_follow": null,
 
   "enable_follow": null,
   "disable_follow": null
@@ -29,43 +27,22 @@ function register_actions() {
     handler: function ( env ) {
       let cell = env.notebook.get_selected_cell()
 
-      if ( cell.cell_type == "code" ) {
+      if ( cell.cell_type === "code" ) {
         cell.output_area.toggle_follow()
       }
     },
     help: "Toggle Follow in the current cell output.",
   }, "toggle_current_follow", "[ jupyter-sequor ]" )
 
-  action_names.enable_current_follow = Jupyter.keyboard_manager.actions.register( {
-    handler: function ( env ) {
-      let cell = env.notebook.get_selected_cell()
-
-      if ( cell.cell_type == "code" ) {
-        cell.output_area.enable_follow()
-      }
-    },
-    help: "Enable Follow in the current cell output.",
-  }, "enable_current_follow", "[ jupyter-sequor ]" )
-
-  action_names.disable_current_follow = Jupyter.keyboard_manager.actions.register( {
-    handler: function ( env ) {
-      let cell = env.notebook.get_selected_cell()
-
-      if ( cell.cell_type == "code" ) {
-        cell.output_area.disable_follow()
-      }
-    },
-    help: "Disable Follow in the current cell output.",
-  }, "disable_current_follow", "[ jupyter-sequor ]" )
-
-
   action_names.enable_follow = Jupyter.keyboard_manager.actions.register( {
     handler: function ( env ) {
       for ( const cell of env.notebook.get_cells() ) {
-        if ( cell.cell_type == "code" ) {
+        if ( cell.cell_type === "code" ) {
           cell.output_area.enable_follow()
         }
       }
+
+      env.notebook.metadata.follow_output = true
     },
     help: "Enable Follow in the current cell output.",
   }, "enable_follow", "[ jupyter-sequor ]" )
@@ -73,10 +50,12 @@ function register_actions() {
   action_names.disable_follow = Jupyter.keyboard_manager.actions.register( {
     handler: function ( env ) {
       for ( const cell of env.notebook.get_cells() ) {
-        if ( cell.cell_type == "code" ) {
+        if ( cell.cell_type === "code" ) {
           cell.output_area.disable_follow()
         }
       }
+
+      env.notebook.metadata.follow_output = false
     },
     help: "Disable Follow in the current cell output.",
   }, "disable_follow", "[ jupyter-sequor ]" )
@@ -88,8 +67,6 @@ function register_actions() {
 function create_menu_items() {
   current_outputs = $( "#current_outputs ul" )
     .append( "<li class='divider'/>" )
-    .append( make_action_menu_item( action_names.disable_current_follow, "Disable Follow" ) )
-    .append( make_action_menu_item( action_names.enable_current_follow, "Enable Follow" ) )
     .append( make_action_menu_item( action_names.toggle_current_follow, "Toggle Follow" ) )
 
   all_outputs = $( "#all_outputs ul" )
