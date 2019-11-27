@@ -69,32 +69,38 @@ OutputArea.prototype.scroll_to_bottom = function () {
   } )
 }
 
+OutputArea.prototype.follow_area = function () {
+  const btn = $( "<div/>" )
+    .addClass( "notification_widget btn btn-xs" )
+    .attr( "data-action", this.follow_output ? "follow" : "no-follow" )
+    .append( "<span>Follow</span>" )
+    .on( "click", this.toggle_follow.bind( this ) )
+
+  this.element.append( btn )
+
+  this.element.on( "scroll", () => {
+
+    // detect the direction and toggle follow accordingly
+    const pos = this.element.scrollTop()
+    if ( pos < this.last_scroll_position ) {
+      this.disable_follow()
+    }
+    this.last_scroll_position = pos
+  } )
+}
+
 const scroll_area = OutputArea.prototype.scroll_area
 OutputArea.prototype.scroll_area = function () {
   scroll_area.call( this )
 
-  this.follow_output = _.isUndefined( this.follow_output ) ? true : this.follow_output
+  this.follow_output = _.isUndefined( this.follow_output )
+    ? _.get( Jupyter.notebook.metadata, "follow_output", true )
+    : this.follow_output
+
   this.last_scroll_position = this.element.scrollTop()
 
   if ( this.element.find( "[data-action*='follow']" ).length <= 0 ) {
-    const btn = $( "<div/>" )
-      .addClass( "notification_widget btn btn-xs" )
-      .attr( "data-action", this.follow_output ? "follow" : "no-follow" )
-      .append( "<span>Follow</span>" )
-      .on( "click", this.toggle_follow.bind( this ) )
-
-    this.element.append( btn )
-
-    this.element.on( "scroll", () => {
-
-      // detect the direction and toggle follow accordingly
-      const pos = this.element.scrollTop()
-      if ( pos < this.last_scroll_position ) {
-        this.disable_follow()
-      }
-      this.last_scroll_position = pos
-    } )
-
+    this.follow_area()
     this.scroll_to_bottom()
   }
 
@@ -115,6 +121,10 @@ OutputArea.prototype.unscroll_area = function () {
  * @export
  */
 export function setup() {
+  if ( _.isUndefined( Jupyter.notebook.metadata.follow_output ) ) {
+    Jupyter.notebook.metadata.follow_output = true
+  }
+
   config.register_actions()
   config.create_menu_items()
 }

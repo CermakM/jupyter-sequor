@@ -37,19 +37,31 @@ if ( window.require ) {
     } )
 }
 
+function load_extension() {
+    console.debug( "[follow] Initializing cell outputs." )
+
+    for ( const cell of Jupyter.notebook.get_cells() ) {
+        if ( cell.cell_type === "code" && cell.output_area.scrolled ) {
+            cell.output_area.follow_area()
+        }
+    }
+}
+
+
 // Export the required load_ipython_extension
 module.exports = {
     load_ipython_extension: function () {
         window.require( [
             "base/js/namespace",
-            "base/js/events"
+            "base/js/events",
+            "jupyter-sequor"
         ], ( Jupyter, events ) => {
 
-            // Wait for the required extension to be loaded
-            events.one( "notebook_loaded.Notebook", () => {
-
-                // TODO: Initialize existing output areas
-            } )
+            if ( Jupyter.notebook._fully_loaded ) {
+                load_extension()
+            } else {
+                events.one( "notebook_loaded.Notebook", () => load_extension )
+            }
         } )
 
     }
