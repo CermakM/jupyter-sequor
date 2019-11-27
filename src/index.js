@@ -15,15 +15,6 @@ import style from "../assets/style.scss"
 const events = require( "base/js/events" )
 const OutputArea = require( "notebook/js/outputarea" ).OutputArea
 
-/**
- * Setup UI
- *
- * @export
- */
-export function setup() {
-  config.register_actions()
-  config.create_menu_items()
-}
 
 OutputArea.prototype.enable_follow = function () {
   this.follow_output = true
@@ -95,7 +86,6 @@ OutputArea.prototype.scroll_area = function () {
     this.element.append( btn )
 
     this.element.on( "scroll", () => {
-      btn.css( { top: this.element.scrollTop() + 10 } )
 
       // detect the direction and toggle follow accordingly
       const pos = this.element.scrollTop()
@@ -117,4 +107,14 @@ OutputArea.prototype.unscroll_area = function () {
   this.events.off( "output_added.OutputArea", this.scroll_to_bottom.bind( this ) )
 
   unscroll_area.call( this )
+}
+
+/**
+ * Setup UI
+ *
+ * @export
+ */
+export function setup() {
+  config.register_actions()
+  config.create_menu_items()
 }
